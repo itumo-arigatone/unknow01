@@ -12,9 +12,8 @@ services:
       - 5432:5432
 
   unknow01:
-    image: unkomorasi01/unknow01
+    image: unknow01
     tty: true
-    working_dir: /srv
     volumes:
       - ../server:/srv:cached
     ports:

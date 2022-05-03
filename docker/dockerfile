@@ -4,3 +4,7 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install openjdk-18-jre -y && \
     apt-get install openjdk-18-jdk -y
+
+# build & exce
+CMD sh /srv/ec/gradlew build -p /srv/ec && \
+    java -jar /srv/ec/build/libs/ec-0.0.1-SNAPSHOT.jar
