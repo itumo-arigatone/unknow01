@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: unkomorasi01
+      POSTGRES_PASSWORD: unkomorasi01
+      PGPASSWORD: unkomorasi01
+      POSTGRES_DB: unknow
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  unknow01_ap:
+    build: ./server
+    image: unknow01
+    tty: true
+    volumes:
+      - ./server:/srv:cached
+    ports:
+      - 8080:8080 # 通常実行
+    depends_on:
+      - postgres
+
+  unknow01_web:
+    build: ./web
+    image: unknow01_web
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web/front:/front
+    working_dir: /front
+    tty: true
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true 

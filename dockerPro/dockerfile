@@ -2,4 +2,5 @@ FROM openjdk:18
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/srv/ec/build/libs/ec-0.0.1-SNAPSHOT.jar"]
+# build & exce
+CMD java -jar /srv/ec/build/libs/ec-0.0.1-SNAPSHOT.jar
