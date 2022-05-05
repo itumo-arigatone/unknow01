@@ -25,6 +25,8 @@ services:
   unknow01_web:
     build: ./web
     image: unknow01_web
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - 3000:3000
     volumes:
