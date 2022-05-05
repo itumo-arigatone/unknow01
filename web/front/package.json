@@ -17,7 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npx eslint --fix src/**/*.ts* && react-scripts start",
+    "start": "npx eslint --fix src/**/*.ts* && node ./setup && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
