@@ -5,7 +5,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import logo from "../logo.svg";
-import "./Product.css";
 
 function Product() {
   // TODO 商品情報を取得する

@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import App from "./App";
-import Showcase from "./shop/Showcase";
 import reportWebVitals from "./reportWebVitals";
+import Showcase from "./shop/Showcase";
+import App from "./App";
 import Header from "./parts/Header";
 
 const root = ReactDOM.createRoot(
@@ -11,8 +12,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Header />
-    <Showcase />
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route index element={<Showcase />} />
+        <Route path="App" element={<App />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
