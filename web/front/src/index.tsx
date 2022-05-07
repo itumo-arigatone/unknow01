@@ -4,12 +4,14 @@ import "./index.css";
 import App from "./App";
 import Showcase from "./shop/Showcase";
 import reportWebVitals from "./reportWebVitals";
+import Header from "./parts/Header";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <Header />
     <Showcase />
   </React.StrictMode>
 );
