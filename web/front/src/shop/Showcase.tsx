@@ -8,15 +8,19 @@ function Showcase() {
   // すべての商品を取得する
   const array: number[] = [0, 0, 0, 0, 0];
   return (
-    <Grid container spacing={2}>
-      {array.map((a, i) => {
-        return (
-          <Grid item xs={12} md={4} sm={6} key={i}>
-            <Product />
-          </Grid>
-        );
-      })}
-    </Grid>
+    <Container>
+      <Box p={3}>
+        <Grid container spacing={2}>
+          {array.map((a, i) => {
+            return (
+              <Grid item xs={12} sm={6} md={4} key={i}>
+                <Product />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
+    </Container>
   );
 }
 
