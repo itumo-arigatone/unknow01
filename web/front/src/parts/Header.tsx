@@ -17,6 +17,9 @@ function Header() {
         <nav>
           <Link to="login">Login</Link>
         </nav>
+        <nav>
+          <Link to="signUp">Sign Up</Link>
+        </nav>
       </Toolbar>
     </AppBar>
   );

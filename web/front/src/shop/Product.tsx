@@ -10,14 +10,9 @@ function Product() {
   // TODO 商品情報を取得する
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image={logo}
-          alt="green iguana"
-        />
+        <CardMedia component="img" height="300" image={logo} alt="商品名" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             商品名
