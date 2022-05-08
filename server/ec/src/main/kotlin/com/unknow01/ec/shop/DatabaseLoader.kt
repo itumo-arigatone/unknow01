@@ -16,6 +16,6 @@ class DatabaseLoader: CommandLineRunner {
     }
 
     override fun run(vararg strings: String) {
-        this.repository.save(Product("sample", "This is Sample!"));
+        this.repository.save(Product(1, "sample", "This is Sample!"));
     }
 }
