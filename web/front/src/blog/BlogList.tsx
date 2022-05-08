@@ -1,4 +1,3 @@
-
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,9 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Blog() {
-  return (
-    <></>
-  );
+  return <></>;
 }
 
 export default Blog;
