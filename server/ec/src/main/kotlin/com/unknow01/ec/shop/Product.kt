@@ -21,6 +21,7 @@ class Product {
     @Column(name = "description")
     lateinit var description: String;
 
+    constructor() {}
 
     constructor(id: Long, product_name: String, description: String) {
         this.id = id;

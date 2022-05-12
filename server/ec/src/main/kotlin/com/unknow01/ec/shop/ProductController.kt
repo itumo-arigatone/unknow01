@@ -17,7 +17,7 @@ class ProductController {
     lateinit var prdService: ProductService;
 
 	@GetMapping("/all")
-	fun index(): List<Product> {
+	fun findAll(): List<Product> {
         return prdService.findAll();
 	}
 }
