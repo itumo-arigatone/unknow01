@@ -19,7 +19,7 @@ class UserService {
     val encoder: PasswordEncoder = BCryptPasswordEncoder();
     // var user: User = user;
     user.password = encoder.encode(user.password);
-    usrRepository.save(user);
+    usrRepository.save(User(user.name, user.password, user.email));
     // saveが成功したら
     return "Success";
   }
