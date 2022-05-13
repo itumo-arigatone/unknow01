@@ -17,7 +17,6 @@ class UserService {
   fun userRegistration(user: User): String {
     // 暗号化して登録。
     val encoder: PasswordEncoder = BCryptPasswordEncoder();
-    // var user: User = user;
     user.password = encoder.encode(user.password);
     usrRepository.save(User(user.name, user.password, user.email));
     // saveが成功したら
