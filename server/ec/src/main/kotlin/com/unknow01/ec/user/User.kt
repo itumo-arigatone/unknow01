@@ -18,6 +18,7 @@ class User {
     lateinit var name: String;
     lateinit var password: String;
     lateinit var email: String;
+    var admin: Boolean = false;
 
     constructor() {}
 
@@ -27,10 +28,18 @@ class User {
         this.email = email;
     }
 
-    constructor(id: Long, name: String, password: String, email: String) {
+    constructor(name: String, password: String, email: String, admin: Boolean) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.admin = admin;
+    }
+
+    constructor(id: Long, name: String, password: String, email: String, admin: Boolean) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
+        this.admin = admin;
     }
 }
