@@ -8,7 +8,7 @@ class LoginUser: org.springframework.security.core.userdetails.User {
 
     var user: User;
 
-    constructor(user: User): super(user.name, user.password, determineRoles(user.admin)) {
+    constructor(user: User): super(user.name, user.password, determineRoles(user.admin_flag)) {
         this.user = user;
     }
 
