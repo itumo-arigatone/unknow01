@@ -14,10 +14,19 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import com.unknow01.ec.login.SimpleAuthenticationEntryPoint;
+import com.unknow01.ec.login.SimpleAccessDeniedHandler;
+import com.unknow01.ec.login.SimpleAuthenticationSuccessHandler;
+import com.unknow01.ec.login.SimpleAuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfiguration: WebSecurityConfigurerAdapter() {
+class SecurityConfiguration: WebSecurityConfigurerAdapter {
+    constructor() {}
     override protected fun configure (http: HttpSecurity) {
         http
         .authorizeRequests()
@@ -31,7 +40,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
                 .authenticated()
         .and()
         // EXCEPTION
-/*        .exceptionHandling()
+        .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint())
             .accessDeniedHandler(accessDeniedHandler())
         .and()
@@ -39,7 +48,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
         .formLogin()
             .loginProcessingUrl("/login").permitAll()
                 .usernameParameter("email")
-                .passwordParameter("pass")
+                .passwordParameter("password")
             .successHandler(authenticationSuccessHandler())
             .failureHandler(authenticationFailureHandler())
         .and()
@@ -51,7 +60,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
             .logoutSuccessHandler(logoutSuccessHandler())
             //.addLogoutHandler(new CookieClearingLogoutHandler())
         .and()
-*/        // CSRF
+        // CSRF
         .csrf()
             //.disable()
             //.ignoringAntMatchers("/login")
@@ -59,27 +68,37 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
         ;
     }
 
+    @Autowired
+    fun configureGlobal(auth: AuthenticationManagerBuilder,
+                        userDetailsService: UserDetailsService,
+                        passwordEncoder: PasswordEncoder) {
+        auth.eraseCredentials(true)
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder);
+    }
+    /*
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder();
     }
-/*
+    */
+
     fun authenticationEntryPoint(): AuthenticationEntryPoint {
-        return SimpleAuthenticationEntryPoint;
+        return SimpleAuthenticationEntryPoint();
     }
 
     fun accessDeniedHandler(): AccessDeniedHandler {
-        return SimpleAccessDeniedHandler;
+        return SimpleAccessDeniedHandler();
     }
 
     fun authenticationSuccessHandler(): AuthenticationSuccessHandler {
-        return SimpleAuthenticationSuccessHandler;
+        return SimpleAuthenticationSuccessHandler();
     }
 
     fun authenticationFailureHandler(): AuthenticationFailureHandler {
-        return SimpleAuthenticationFailureHandler;
+        return SimpleAuthenticationFailureHandler();
     }
-*/
+
     fun logoutSuccessHandler(): LogoutSuccessHandler {
         return HttpStatusReturningLogoutSuccessHandler();
     }
