@@ -1,14 +1,13 @@
 package com.unknow01.ec.login;
 
-import com.unknow01.ec.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 class LoginUser: org.springframework.security.core.userdetails.User {
 
-    var user: User;
+    private var user: com.unknow01.ec.user.User;
 
-    constructor(user: User): super(user.name, user.password, determineRoles(user.admin_flag)) {
+    constructor(user: com.unknow01.ec.user.User): super(user.name, user.password, determineRoles(user.admin_flag)) {
         this.user = user;
     }
 

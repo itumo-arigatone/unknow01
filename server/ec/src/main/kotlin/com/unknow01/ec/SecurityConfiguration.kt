@@ -22,11 +22,16 @@ import com.unknow01.ec.login.SimpleAuthenticationEntryPoint;
 import com.unknow01.ec.login.SimpleAccessDeniedHandler;
 import com.unknow01.ec.login.SimpleAuthenticationSuccessHandler;
 import com.unknow01.ec.login.SimpleAuthenticationFailureHandler;
+import com.unknow01.ec.login.SimpleUserDetailsService;
+import com.unknow01.ec.user.UserRepository;
 
-@Configuration
 @EnableWebSecurity
 class SecurityConfiguration: WebSecurityConfigurerAdapter {
-    constructor() {}
+    val userRepository: UserRepository;
+    @Autowired
+    constructor(userRepository: UserRepository){
+        this.userRepository = userRepository
+    }
     override protected fun configure (http: HttpSecurity) {
         http
         .authorizeRequests()
@@ -63,25 +68,16 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
         // CSRF
         .csrf()
             //.disable()
-            //.ignoringAntMatchers("/login")
+            .ignoringAntMatchers("/login")
             .csrfTokenRepository(CookieCsrfTokenRepository())
         ;
     }
 
-    @Autowired
-    fun configureGlobal(auth: AuthenticationManagerBuilder,
-                        userDetailsService: UserDetailsService,
-                        passwordEncoder: PasswordEncoder) {
+    override fun configure(auth: AuthenticationManagerBuilder) {
         auth.eraseCredentials(true)
-            .userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder);
+            .userDetailsService(SimpleUserDetailsService(userRepository))
+            .passwordEncoder(BCryptPasswordEncoder());
     }
-    /*
-    @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder();
-    }
-    */
 
     fun authenticationEntryPoint(): AuthenticationEntryPoint {
         return SimpleAuthenticationEntryPoint();
