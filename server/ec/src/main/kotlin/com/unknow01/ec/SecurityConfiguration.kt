@@ -35,11 +35,11 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
     override protected fun configure (http: HttpSecurity) {
         http
         .authorizeRequests()
-            .mvcMatchers("/prelogin", "/hello")
+            .mvcMatchers("/prelogin")
                 .permitAll()
             .mvcMatchers("/user/**")
                 .hasRole("USER")
-            .mvcMatchers("/admin/**")
+            .mvcMatchers("/admin/**", "/hello")
                 .hasRole("ADMIN")
             .anyRequest()
                 .authenticated()

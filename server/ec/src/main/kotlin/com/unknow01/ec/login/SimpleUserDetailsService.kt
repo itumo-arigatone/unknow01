@@ -19,8 +19,7 @@ class SimpleUserDetailsService: UserDetailsService {
 
     override fun loadUserByUsername(email: String): UserDetails {
         // emailでデータベースからユーザーエンティティを検索する
-        val user: UserDetails? = userRepository.findByEmail(email)?
-                                    .let { LoginUser(it) };
+        val user: UserDetails? = userRepository.findByEmail(email)?.let { LoginUser(it) };
         if (user == null) {
             throw UsernameNotFoundException("user not found");
         }
