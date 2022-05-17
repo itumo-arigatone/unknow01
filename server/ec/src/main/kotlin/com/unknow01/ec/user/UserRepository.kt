@@ -7,5 +7,5 @@ import com.unknow01.ec.user.User;
 
 interface UserRepository: JpaRepository<User, Long> {
 
-    fun findByEmail(email: String): UserDetails;
+    fun findByEmail(email: String): User?;
 }
