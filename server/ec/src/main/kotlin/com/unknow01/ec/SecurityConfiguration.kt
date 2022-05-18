@@ -35,7 +35,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
     override protected fun configure (http: HttpSecurity) {
         http
         .authorizeRequests()
-            .mvcMatchers("/prelogin")
+            .mvcMatchers("/prelogin", "/user/create_user")
                 .permitAll()
             .mvcMatchers("/user/**")
                 .hasRole("USER")
