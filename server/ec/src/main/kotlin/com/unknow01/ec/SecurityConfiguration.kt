@@ -35,7 +35,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
     override protected fun configure (http: HttpSecurity) {
         http
         .authorizeRequests()
-            .mvcMatchers("/prelogin", "/user/create_user")
+            .mvcMatchers("/prelogin", "/user/create_user", "/products/**")
                 .permitAll()
             .mvcMatchers("/user/**")
                 .hasRole("USER")
@@ -68,7 +68,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
         // CSRF
         .csrf()
             //.disable()
-            .ignoringAntMatchers("/login")
+            .ignoringAntMatchers("/login", "/products/**")
             .csrfTokenRepository(CookieCsrfTokenRepository())
         ;
     }

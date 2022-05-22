@@ -6,19 +6,25 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import logo from "../logo.svg";
 
-function Product() {
-  // TODO 商品情報を取得する
+type Props = {
+  data: {
+    id: String;
+    product_name: String;
+    description: String;
+  }
+}
 
+function Product(props: Props) {
   return (
     <Card>
       <CardActionArea>
         <CardMedia component="img" height="300" image={logo} alt="商品名" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            商品名
+            {props.data.product_name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            説明です。
+            {props.data.description}
           </Typography>
         </CardContent>
       </CardActionArea>
