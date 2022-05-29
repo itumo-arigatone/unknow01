@@ -8,11 +8,11 @@ import logo from "../logo.svg";
 
 type Props = {
   data: {
-    id: String;
-    product_name: String;
-    description: String;
-  }
-}
+    id: string;
+    product_name: string;
+    description: string;
+  };
+};
 
 function Product(props: Props) {
   return (

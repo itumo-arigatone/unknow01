@@ -12,30 +12,26 @@ function Showcase() {
     { id: "", product_name: "", description: "" },
   ]);
   useEffect(() => {
-    fetch("https://localhost:8080/products/all", {
+    fetch("http://localhost:8080/products/all", {
       method: "GET",
       headers: {
-        "x-xsrf-token": "b4562164-b959-4fcb-82f7-5b8e7e5c8e4e",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
-          console.log(result);
           setItems(result);
+          console.log(result);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
+          console.log("Error:", error);
           setIsLoaded(true);
-          console.log(error);
           setError(error);
         }
       );
   }, []);
-
   if (error.message) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -46,6 +42,7 @@ function Showcase() {
         <Box p={3}>
           <Grid container spacing={2}>
             {items.map((item) => {
+              console.log(item);
               return (
                 <Grid item xs={12} sm={6} md={4} key={item.id}>
                   <Product data={item} />
