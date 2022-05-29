@@ -23,7 +23,6 @@ function Showcase() {
         (result) => {
           setIsLoaded(true);
           setItems(result);
-          console.log(result);
         },
         (error) => {
           console.log("Error:", error);
@@ -42,7 +41,6 @@ function Showcase() {
         <Box p={3}>
           <Grid container spacing={2}>
             {items.map((item) => {
-              console.log(item);
               return (
                 <Grid item xs={12} sm={6} md={4} key={item.id}>
                   <Product data={item} />

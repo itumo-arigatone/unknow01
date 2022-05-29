@@ -24,6 +24,9 @@ import com.unknow01.ec.login.SimpleAuthenticationSuccessHandler;
 import com.unknow01.ec.login.SimpleAuthenticationFailureHandler;
 import com.unknow01.ec.login.SimpleUserDetailsService;
 import com.unknow01.ec.user.UserRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 class SecurityConfiguration: WebSecurityConfigurerAdapter {
@@ -70,6 +73,9 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
             //.disable()
             .ignoringAntMatchers("/login", "/products/**")
             .csrfTokenRepository(CookieCsrfTokenRepository())
+        .and()
+        .cors()
+            .configurationSource(this.corsConfigurationSource());
         ;
     }
 
@@ -77,6 +83,18 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
         auth.eraseCredentials(true)
             .userDetailsService(SimpleUserDetailsService(userRepository))
             .passwordEncoder(BCryptPasswordEncoder());
+    }
+
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration = CorsConfiguration()
+        configuration.addAllowedHeader(CorsConfiguration.ALL)
+        configuration.allowedOrigins = listOf("http://localhost:3000")
+        configuration.allowedMethods = listOf("GET", "POST")
+
+        val corsSource = UrlBasedCorsConfigurationSource();
+        corsSource.registerCorsConfiguration("/**", configuration);
+
+        return corsSource;
     }
 
     fun authenticationEntryPoint(): AuthenticationEntryPoint {

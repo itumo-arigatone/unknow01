@@ -11,7 +11,6 @@ import com.unknow01.ec.shop.Product;
 import com.unknow01.ec.shop.ProductService;
 
 @RestController
-@CrossOrigin(origins = ["http://localhost:3000"])
 @RequestMapping("/products")
 class ProductController {
 

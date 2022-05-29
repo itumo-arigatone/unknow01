@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,14 +14,33 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme();
 
+// https://javascript.plainenglish.io/basic-react-login-using-external-api-e33322e480cd
+async function loginUser(credentials: FormData) {
+  return fetch("http://localhost:8080/login", {
+    method: "POST",
+    headers: {},
+    body: credentials,
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.log("Error:", error);
+      }
+    );
+}
+
 function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const response = await loginUser(data);
+    console.log(response);
   };
 
   return (
@@ -55,6 +74,7 @@ function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -65,6 +85,7 @@ function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
