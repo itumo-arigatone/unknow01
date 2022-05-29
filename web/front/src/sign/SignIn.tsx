@@ -21,7 +21,7 @@ async function loginUser(credentials: FormData) {
     headers: {},
     body: credentials,
   })
-    .then((res) => res.json())
+    .then((res) => res)
     .then(
       (result) => {
         console.log(result);
