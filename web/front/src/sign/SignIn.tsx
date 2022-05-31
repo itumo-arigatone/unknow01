@@ -18,13 +18,20 @@ const theme = createTheme();
 async function loginUser(credentials: FormData) {
   return fetch("http://localhost:8080/login", {
     method: "POST",
-    headers: {},
+    mode: "cors",
+    credentials: "include",
     body: credentials,
+    headers: {
+      "Access-Control-Allow-Headers": "multipart/form-data",
+    },
   })
     .then((res) => res)
     .then(
       (result) => {
         console.log(result);
+        if (result.status === 200) {
+          window.location.href = "/";
+        }
       },
       (error) => {
         console.log("Error:", error);
@@ -39,8 +46,8 @@ function SignIn() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await loginUser(data);
-    console.log(response);
+    console.log(data);
+    await loginUser(data);
   };
 
   return (

@@ -90,6 +90,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
         configuration.addAllowedHeader(CorsConfiguration.ALL)
         configuration.allowedOrigins = listOf("http://localhost:3000")
         configuration.allowedMethods = listOf("GET", "POST")
+        configuration.allowCredentials = true
 
         val corsSource = UrlBasedCorsConfigurationSource();
         corsSource.registerCorsConfiguration("/**", configuration);
