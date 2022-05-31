@@ -8,6 +8,7 @@ import App from "./App";
 import Header from "./parts/Header";
 import SignIn from "./sign/SignIn";
 import SignUp from "./sign/SignUp";
+import Profile from "./profile/Profile";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,6 +22,7 @@ root.render(
         <Route path="App" element={<App />} />
         <Route path="login" element={<SignIn />} />
         <Route path="signUp" element={<SignUp />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -27,6 +27,23 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
 }));
 
+function SignOut() {
+  fetch("http://localhost:8080/logout", {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((res) => res)
+    .then(
+      (result) => {
+        console.log(result);
+        // window.location.href = "/";
+      },
+      (error) => {
+        console.error("Error:", error);
+      }
+    );
+}
+
 function Header() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -145,6 +162,9 @@ function Header() {
           </Button>
           <Button sx={{ my: 2, display: "block" }} component={Link} to="signUp">
             Sign up
+          </Button>
+          <Button sx={{ my: 2, display: "block" }} onClick={() => SignOut()}>
+            SIGN OUT
           </Button>
         </List>
       </Drawer>
