@@ -71,8 +71,6 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
         // CSRF
         .csrf()
             //.disable()
-            .ignoringAntMatchers("/login", "/products/**")
-            .csrfTokenRepository(CookieCsrfTokenRepository())
         .and()
         .cors()
             .configurationSource(this.corsConfigurationSource());
