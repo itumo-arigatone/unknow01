@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { RestoreOutlined } from "@mui/icons-material";
 
 const theme = createTheme();
 
@@ -30,7 +31,7 @@ async function loginUser(credentials: FormData) {
       (result) => {
         console.log(result);
         if (result.status === 200) {
-          window.location.href = "/";
+          // window.location.href = "/";
         }
       },
       (error) => {
@@ -39,6 +40,27 @@ async function loginUser(credentials: FormData) {
     );
 }
 
+// 初期表示時にCSRFトークン取得
+let csrfToken = "";
+const response = async () => {
+  await fetch("http://localhost:8080/prelogin", {
+    method: "GET",
+    mode: "cors",
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+        csrfToken = result.token;
+      },
+      (error) => {
+        console.log("Error:", error);
+      }
+    );
+};
+response();
+
+
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +68,7 @@ function SignIn() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data);
+    data.set("_csrf", csrfToken);
     await loginUser(data);
   };
 
