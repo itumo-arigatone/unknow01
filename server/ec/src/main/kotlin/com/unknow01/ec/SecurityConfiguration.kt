@@ -71,6 +71,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter {
         // CSRF
         .csrf()
             //.disable()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .and()
         .cors()
             .configurationSource(this.corsConfigurationSource());

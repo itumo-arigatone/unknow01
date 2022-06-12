@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.web.csrf.CsrfToken;
 
 @RestController
-@RequestMapping("/prelogin")
+@RequestMapping("/csrf")
 class LoginController {
 
     @GetMapping
-    fun preLogin(csrfToken: CsrfToken): String {
-        return """{ "token": "${csrfToken.token}" }"""
+    fun getCsrfToken(csrfToken: CsrfToken): String {
+        return csrfToken.getToken()
     }
 
 }
