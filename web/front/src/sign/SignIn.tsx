@@ -41,17 +41,16 @@ async function loginUser(credentials: FormData) {
 }
 
 // 初期表示時にCSRFトークン取得
-let csrfToken = "";
 const response = async () => {
-  await fetch("http://localhost:8080/prelogin", {
+  await fetch("http://localhost:8080/csrf", {
     method: "GET",
     mode: "cors",
+    credentials: "include",
   })
     .then((res) => res.json())
     .then(
       (result) => {
         console.log(result);
-        csrfToken = result.token;
       },
       (error) => {
         console.log("Error:", error);
@@ -67,7 +66,9 @@ function SignIn() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    data.set("_csrf", csrfToken);
+    const cookie = document.cookie;
+    const csrfToken = cookie.split("=");
+    data.set("_csrf", csrfToken[1]);
     await loginUser(data);
   };
 
